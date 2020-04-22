@@ -1,3 +1,5 @@
+#El este Coco si este aici sa te ajute in lupta cu singuratatea
+
 import speech_recognition as sr
 from time import ctime
 import webbrowser
@@ -8,6 +10,8 @@ import random
 from gtts import gTTS
 
 r = sr.Recognizer()
+
+#get string and make audio file 2be played
 
 def record_audio(ask = False):
     with sr.Microphone() as source:
@@ -39,18 +43,26 @@ def respond(voice_data):
     if 'what time is it' in voice_data:
         #print(ctime()) 
         coco_speak(ctime()) 
+        #search google
     if 'search' in voice_data:
         search = record_audio('What do you want to search for?')            
         url = 'https://google.com/search?q=' + search
         webbrowser.get().open(url)
         coco_speak('Here is what I found for ' + search)
+        #search location maps
     if 'find location' in voice_data:
         location = record_audio('What is the location?')            
         url = 'https://google.nl/maps/place/' + location + '/&amp;'
         webbrowser.get().open(url)
         coco_speak('Here is the location of ' + location)
     if 'exit' in voice_data:
-        exit()    
+        exit()  
+        #search YT  
+    if 'youtube':
+        search_term = voice_data.split("for")[-1]
+        url = "https://www.youtube.com/results?search_query={search_term}"
+        webbrowser.get().open(url)
+        coco_speak('Here is what I found for {search_term} on youtube')
 
 
 time.sleep(1)
